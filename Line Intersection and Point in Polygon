@@ -1,0 +1,35 @@
+import numpy as np
+
+def line_intersection(l1,l2):
+   """
+   l1 = input('mokhtasat khat aval ro vared konid: ')
+   l2 = input('mokhtasat khat dovvom ro vared konid: ')
+
+   l1 = l1[1:-1].split('),(')
+   l1 = [tuple(map(int,l1[0].split(','))),tuple(map(int,l1[1].split(',')))]
+
+   l2 = l2[1:-1].split('),(')
+   l2 = [tuple(map(int,l2[0].split(','))),tuple(map(int,l2[1].split(',')))]
+   """
+   A = np.array([[l1[0][0],l1[0][1],1],[l1[1][0],l1[1][1],1],[l2[0][0],l2[0][1],1]])
+   B = np.array([[l1[0][0],l1[0][1],1],[l1[1][0],l1[1][1],1],[l2[1][0],l2[1][1],1]])
+   if np.linalg.det(A) * np.linalg.det(B) < 0:
+      return True
+   else:
+      return False
+
+def det_mosalas(p1,p2,p3):
+   return np.linalg.det(np.array([[p1[0],p1[1],1],[p2[0],p2[1],1],[p3[0],p3[1],1]]))
+
+
+def point_in_polygon(polygon,point):
+   polygon.append(polygon[0])
+   result = 1
+   for i in range(len(polygon)-1):
+      result *= det_mosalas(polygon[i],polygon[i+1],point)
+   if result < 0:
+      return False
+   return True
+      
+   
+
